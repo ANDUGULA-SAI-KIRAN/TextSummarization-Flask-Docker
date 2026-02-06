@@ -28,37 +28,7 @@ def handle_unhandled_exception(e):
         "message": "The server encountered a problem it couldn't handle."
     }), 500
 
-# --- Routes ---
-# @app.route('/summarize', methods=['POST'])
-# def summarize_endpoint():
-#     try:
-#         data = request.get_json()
-#         if not data:
-#             return jsonify({"error": "Invalid JSON"}), 400
-        
-#         documents = data.get("documents", [])
-#         if not documents or not isinstance(documents, list):
-#             return jsonify({"error": "'documents' must be a non-empty list of strings"}), 400
-            
-#         # Preprocess: Concatenate all docs
-#         full_text = concatenate_texts(documents)
-        
-#         if not full_text:
-#              return jsonify({"error": "No valid text content found in documents"}), 400
 
-#         # Summarize
-#         summary = summarize_text(full_text)
-        
-#         return jsonify({"summary": summary}), 200
-
-#     except ValueError as ve:
-#         return jsonify({"error": str(ve)}), 400
-#     except Exception as e:
-#         logger.error(f"Error during summarization: {e}")
-#         return jsonify({"error": "An error occurred during processing"}), 500
-
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=5000, debug=True)
 @app.route('/summarize', methods=['POST'])
 def summarize_endpoint():
     # 1. Audit Incoming Request

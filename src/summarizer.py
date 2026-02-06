@@ -5,9 +5,6 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 from src.utils import logger
 
 # Define model path relative to this file
-# MODEL_DIR = os.path.join(os.path.dirname(__file__), "models", "t5-small")
-# If model doesn't exist locally, we can download it to this path or let transformers cache it.
-# To ensure it works offline after build, we'll try to load from local, else download.
 # Use a folder that is in your .gitignore
 CACHE_DIR = os.path.join(os.getcwd(), "model_cache")
 MODEL_NAME = "t5-small"
@@ -126,29 +123,6 @@ class Summarizer:
              
         logger.info("Summarization process complete.")
         return combined_summary
-    
-        # # Parallel processing of chunks
-        # summaries = []
-        # with concurrent.futures.ThreadPoolExecutor() as executor:
-            
-        #     future_to_chunk = {executor.submit(self._summarize_chunk, chunk, max_length, min_length): chunk for chunk in chunks}
-        #     for future in concurrent.futures.as_completed(future_to_chunk):
-        #         try:
-        #             summaries.append(future.result())
-        #         except Exception as exc:
-        #             print(f"Chunk summarization generated an exception: {exc}")
-        
-        # # Join input summaries and second pass summarization if needed
-        # combined_summary = " ".join(summaries)
-        
-        # # If combined summary is still too long, we might want to summarize again (recursive).
-        # # For this logic, we will inspect the length.
-        # combined_tokens = self.tokenizer.encode(combined_summary)
-        # if len(combined_tokens) > 1024:
-        #      # Recursive call
-        #      return self.summarize(combined_summary, max_length, min_length)
-             
-        # return combined_summary
 
 # Singleton instance
 summarizer_instance = Summarizer()
