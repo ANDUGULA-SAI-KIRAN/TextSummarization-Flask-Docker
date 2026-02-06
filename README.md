@@ -31,7 +31,7 @@ A Flask-based API that ingests multiple text documents, concatenates them, and r
 ├── requirements.txt      # Dependency list
 └── README.md             # Project Documentation
 ```
-
+---
 ## Technical Details
 ### Sliding Window Summarization
 For documents exceeding the model's token limit (1024 tokens), the system employs a sliding window approach:
@@ -41,12 +41,24 @@ For documents exceeding the model's token limit (1024 tokens), the system employ
 4. **Aggregation**: Individual chunk summaries are concatenated. If the result is still too long, the process repeats recursively.
 
 ### Status Code Logic
-The API follows standard REST principles for error reporting. You can observe these codes in Postman: | Code | Meaning | Trigger Scenario | | :--- | :--- | :--- | | 200 | OK | Successful summarization. | | 400 | Bad Request | Malformed JSON (e.g., unescaped quotes) or empty text. | | 415 | Unsupported Media | Content-Type is not application/json. | | 422 | Unprocessable Entity | Missing documents key or invalid data type (e.g., string instead of list). | | 500 | Server Error | Internal model inference or hardware failure. |
 
+The API follows standard REST principles for error reporting.  
+You can observe these status codes directly in tools like **Postman**.
+
+| Code | Meaning | Trigger Scenario |
+|------|--------|------------------|
+| 200  | OK | Successful summarization request. |
+| 400  | Bad Request | Malformed JSON (e.g., unescaped quotes) or empty text input. |
+| 415  | Unsupported Media Type | `Content-Type` is not set to `application/json`. |
+| 422  | Unprocessable Entity | Missing `documents` key or invalid data type (e.g., string instead of list). |
+| 500  | Internal Server Error | Internal model inference failure or hardware-related error. |
+
+---
 ## Requirements
 - Python 3.12.7
 - Docker
 
+---
 ## Setup & Installation
 
 ### Local Setup
@@ -67,9 +79,9 @@ The API follows standard REST principles for error reporting. You can observe th
    ```
 2. Run the container:
    ```bash
-   docker run -p 5000:5000 -v $(pwd)/model_cache:/app/model_cache text-summarizer-api
+   docker run -p 5000:5000 -v ${PWD}/model_cache:/app/model_cache text-summarizer-api
    ```
-
+---
 ## API Usage
 
 ### Endpoint: `/summarize`
@@ -91,6 +103,24 @@ The API follows standard REST principles for error reporting. You can observe th
     "summary": "Concatenated and summarized text..."
   }
   ```
+
+## 🧪 Testing with Postman
+
+To make it easier to test the API, I have included a pre-configured Postman Collection in the repository.
+
+### How to use the Postman Collection:
+1. **Open Postman**: Launch the Postman application on your desktop.
+2. **Import the Collection**:
+   - Click the **Import** button in the top-left sidebar.
+   - Drag and drop the `postman_collection.json` file from the project root into the import window.
+3. **Verify Localhost Settings**:
+   - The collection is pre-configured to hit `http://localhost:5000/summarize`.
+   - Ensure your Flask app is running locally (via `python -m src.app` or Docker) before sending requests.
+4. **Send a Request**:
+   - Select the `Summarize Documents` request from the imported collection.
+   - Go to the **Body** tab to see the sample JSON structure.
+   - Click **Send** and view the generated summary in the response pane.
+---
 
 ## Testing & Reporting
 The project includes a robust testing suite that mocks model inference for speed while verifying pathing and logic.
