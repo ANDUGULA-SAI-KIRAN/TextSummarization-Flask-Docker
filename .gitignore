@@ -1,3 +1,9 @@
+# Ignore the actual model weights
+src/models/
+model_cache/
+*.safetensors
+*.bin
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

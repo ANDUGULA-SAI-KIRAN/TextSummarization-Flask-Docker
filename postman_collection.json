@@ -1,76 +1,38 @@
 {
-	"info": {
-		"_postman_id": "c97425b3-06a6-4836-a9bb-eca26804f16e",
-		"name": "Text Summarization API",
-		"description": "Collection for testing the Text Summarization Flask API. Includes requests for success and error scenarios.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Summarize Text (Success)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"documents\": [\r\n        {\r\n            \"text\": \"Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans. AI research has been defined as the field of study of intelligent agents, which refers to any system that perceives its environment and takes actions that maximize its chance of achieving its goals.\"\r\n        },\r\n        {\r\n            \"text\": \"The term 'artificial intelligence' had previously been used to describe machines that mimic and display 'human' cognitive skills that are associated with the human mind, such as 'learning' and 'problem-solving'. This definition has since been rejected by major AI researchers who now describe AI in terms of rationality and acting rationally, which does not limit how intelligence can be articulated.\"\r\n        }\r\n    ]\r\n}"
-				},
-				"url": {
-					"raw": "http://127.0.0.1:5000/summarize",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"summarize"
-					]
-				},
-				"description": "Sends a list of documents to be summarized."
-			},
-			"response": []
-		},
-		{
-			"name": "Summarize Text (Validation Error)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"documents\": []\r\n}"
-				},
-				"url": {
-					"raw": "http://127.0.0.1:5000/summarize",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"summarize"
-					]
-				},
-				"description": "Demonstrates a validation error when the documents list is empty."
-			},
-			"response": []
-		}
-	]
+    "info": {
+        "_postman_id": "text-summarizer-api",
+        "name": "Text Summarizer API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Summarize Text",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"documents\": [\n        \"Artificial intelligence (AI) is transforming industries by enabling machines to perform tasks that typically require human intelligence.\",\n        \"These tasks include problem-solving, speech recognition, decision-making, and language translation.\"\n    ]\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:5000/summarize",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "summarize"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
 }
